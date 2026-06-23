@@ -131,18 +131,23 @@ export function ScanLines({ count = 3 }: { count?: number }) {
 }
 
 /**
- * Animated gradient edge ribbon at the top of a section. Cheap, always on.
+ * Animated gradient edge ribbon at the top of a section. The colour peak
+ * travels left ↔ right every 8 s via a `background-position` keyframe on a
+ * 200% oversized gradient. Cheap (single compositor property), always on
+ * unless `prefers-reduced-motion` is set.
  */
 export function GlowBorder({ tone = 'electric' }: { tone?: 'electric' | 'signal' }) {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-x-0 top-0 h-px"
+      className="pointer-events-none absolute inset-x-0 top-0 h-px animate-glow-line will-change-[background-position]"
       style={{
-        background:
+        backgroundImage:
           tone === 'electric'
-            ? 'linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.6) 30%, rgba(229,57,53,0.5) 70%, transparent 100%)'
-            : 'linear-gradient(90deg, transparent 0%, rgba(229,57,53,0.6) 30%, rgba(37,99,235,0.5) 70%, transparent 100%)',
+            ? 'linear-gradient(90deg, transparent 0%, rgba(37,99,235,0.65) 30%, rgba(229,57,53,0.55) 70%, transparent 100%)'
+            : 'linear-gradient(90deg, transparent 0%, rgba(229,57,53,0.65) 30%, rgba(37,99,235,0.55) 70%, transparent 100%)',
+        backgroundSize: '200% 100%',
+        backgroundRepeat: 'no-repeat',
       }}
     />
   );

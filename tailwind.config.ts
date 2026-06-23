@@ -152,6 +152,7 @@ const config: Config = {
         'orbit-slow':  'orbit 22s linear infinite',
         'sheen':       'sheen 3.6s linear infinite',
         'scan-line':   'scanLine 6s linear infinite',
+        'glow-line':   'glowLine 8s ease-in-out infinite',
       },
       keyframes: {
         float: {
@@ -202,6 +203,13 @@ const config: Config = {
         scanLine: {
           '0%':   { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100vh)' },
+        },
+        // Slow horizontal travel of the colour stops across an over-sized
+        // gradient (background-size: 200% 100%). Eased so the peak dwells a
+        // little at each side instead of marching robotically.
+        glowLine: {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%':      { backgroundPosition: '100% 50%' },
         },
       },
     },

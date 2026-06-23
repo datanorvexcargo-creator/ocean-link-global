@@ -181,4 +181,13 @@ body.no-blur .glass,
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Decorative section divider — keep it alive, just slower. It's a pure
+     `background-position` shift on a 1px-tall element, so it carries zero
+     vestibular risk (no spatial motion, just a colour swell). Re-enable
+     after the global override above so reduced-motion users still get the
+     atmospheric line. */
+  .animate-glow-line {
+    animation: glowLine 24s ease-in-out infinite !important;
+  }
 }
