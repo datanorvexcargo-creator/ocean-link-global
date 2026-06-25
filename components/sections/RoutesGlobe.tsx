@@ -99,7 +99,7 @@ export function RoutesGlobe() {
             Network atlas
           </span>
           <h2 className="font-display text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[1.05] tracking-mega-tight text-chalk">
-            Seven primary hubs.<br />
+            Eight primary hubs.<br />
             <span className="font-medium bg-gradient-to-r from-electric via-chalk to-signal bg-clip-text text-transparent">
               One continuous network.
             </span>
