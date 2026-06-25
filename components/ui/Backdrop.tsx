@@ -38,7 +38,10 @@ export function LightOrbs({
   });
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    // Hidden on tablet + desktop (>= md / 768px) — the client felt the drift
+    // was distracting on PC. Mobile keeps them because the surface area is
+    // smaller and the effect adds depth without dominating the screen.
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden md:hidden">
       {items.map((o, i) => (
         <motion.div
           key={i}
