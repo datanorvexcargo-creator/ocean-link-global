@@ -7,61 +7,15 @@ import { useDeviceCapability } from '@/hooks/useDeviceCapability';
  * Light orbs that drift behind content. Density and count auto-scale down
  * on low/medium-tier devices.
  */
-export function LightOrbs({
-  density = 'normal',
-  tones = ['electric', 'signal'],
-}: {
+export function LightOrbs(_props: {
   density?: 'subtle' | 'normal' | 'dense';
   tones?: Array<'electric' | 'signal'>;
 }) {
-  const { tier, allowAtmosphere } = useDeviceCapability();
-  if (!allowAtmosphere) return null;
-
-  // Auto-downgrade density on medium-tier hardware
-  let effectiveDensity = density;
-  if (tier === 'medium') {
-    if (density === 'dense') effectiveDensity = 'normal';
-    if (density === 'normal') effectiveDensity = 'subtle';
-  }
-
-  const orbs =
-    effectiveDensity === 'dense' ? 5 : effectiveDensity === 'subtle' ? 2 : 3;
-  const items = Array.from({ length: orbs }).map((_, i) => {
-    const tone = tones[i % tones.length];
-    return {
-      tone,
-      size: 320 + (i * 80) % 240,
-      x: (i * 31) % 100,
-      y: (i * 47) % 100,
-      delay: i * 1.2,
-    };
-  });
-
-  return (
-    // Hidden on tablet + desktop (>= md / 768px) — the client felt the drift
-    // was distracting on PC. Mobile keeps them because the surface area is
-    // smaller and the effect adds depth without dominating the screen.
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden md:hidden">
-      {items.map((o, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.55 }}
-          transition={{ duration: 2.4, delay: o.delay * 0.4 }}
-          className={`absolute rounded-full mix-blend-screen blur-[140px] animate-drift ${
-            o.tone === 'electric' ? 'bg-electric/45' : 'bg-signal/40'
-          }`}
-          style={{
-            width: o.size,
-            height: o.size,
-            left: `${o.x}%`,
-            top: `${o.y}%`,
-            animationDelay: `${o.delay}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
+  // Disabled globally per client request — the drifting background blobs
+  // were distracting on every viewport. Keeping the export signature so
+  // existing call sites compile unchanged; the component just renders
+  // nothing now. Re-enable by restoring the previous implementation.
+  return null;
 }
 
 /**
